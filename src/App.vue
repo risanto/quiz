@@ -1,12 +1,20 @@
 <template>
   <div class="ctr">
-    <Questions
-      v-if="questionsAnswered < questions.length"
-      :questions="questions"
-      :questionsAnswered="questionsAnswered"
-      @handleAnswer="handleAnswer"
-    />
-    <Result v-else :results="results" :totalCorrect="totalCorrect" />
+    <Transition
+      mode="out-in"
+      enterActiveClass="animate__animated animate__jello"
+      leaveActiveClass="animate__animated animate__bounceOutDown"
+    >
+      <Questions
+        v-if="questionsAnswered < questions.length"
+        :questions="questions"
+        :questionsAnswered="questionsAnswered"
+        @handleAnswer="handleAnswer"
+      />
+
+      <Result v-else :results="results" :totalCorrect="totalCorrect" />
+    </Transition>
+
     <button type="button" class="reset-btn" @click="reset">Reset</button>
   </div>
 </template>
@@ -116,4 +124,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.reset-btn {
+  cursor: pointer;
+}
+</style>

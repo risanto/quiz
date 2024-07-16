@@ -10,24 +10,30 @@
       </div>
     </div>
 
-    <div
-      class="single-question"
-      v-for="(question, qIdx) in questions"
-      :key="question.q"
-      v-show="questionsAnswered === qIdx"
+    <TransitionGroup
+      mode="out-in"
+      enterActiveClass="animate__animated animate__bounce"
+      leaveActiveClass="animate__animated animate__backOutDown"
     >
-      <div class="question">{{ question.q }}</div>
-      <div class="answers">
-        <div
-          class="answer"
-          v-for="answer in question.answers"
-          :key="answer"
-          @click.prevent="handleAnswer(answer.is_correct)"
-        >
-          {{ answer.text }}
+      <div
+        class="single-question"
+        v-for="(question, qIdx) in questions"
+        :key="question.q"
+        v-show="questionsAnswered === qIdx"
+      >
+        <div class="question">{{ question.q }}</div>
+        <div class="answers">
+          <div
+            class="answer"
+            v-for="answer in question.answers"
+            :key="answer"
+            @click.prevent="handleAnswer(answer.is_correct)"
+          >
+            {{ answer.text }}
+          </div>
         </div>
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -43,3 +49,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.animate__backOutDown {
+  position: absolute;
+}
+</style>
