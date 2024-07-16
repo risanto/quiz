@@ -1,6 +1,11 @@
 <template>
   <div class="ctr">
-    <Questions v-if="questionsAnswered < questions.length" />
+    <Questions
+      v-if="questionsAnswered < questions.length"
+      :questions="questions"
+      :questionsAnswered="questionsAnswered"
+      @handleAnswer="handleAnswer"
+    />
     <Result v-else />
     <button type="button" class="reset-btn">Reset</button>
   </div>
@@ -13,9 +18,19 @@ import Result from "@/components/Result.vue";
 export default {
   name: "App",
   components: { Questions, Result },
+  methods: {
+    handleAnswer(isCorrect) {
+      if (isCorrect) {
+        this.totalCorrect++;
+      }
+
+      this.questionsAnswered++;
+    },
+  },
   data() {
     return {
       questionsAnswered: 0,
+      totalCorrect: 0,
       questions: [
         {
           q: "What is 2 + 2?",
