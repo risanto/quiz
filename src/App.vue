@@ -6,8 +6,8 @@
       :questionsAnswered="questionsAnswered"
       @handleAnswer="handleAnswer"
     />
-    <Result v-else />
-    <button type="button" class="reset-btn">Reset</button>
+    <Result v-else :results="results" :totalCorrect="totalCorrect" />
+    <button type="button" class="reset-btn" @click="reset">Reset</button>
   </div>
 </template>
 
@@ -25,6 +25,11 @@ export default {
       }
 
       this.questionsAnswered++;
+    },
+
+    reset() {
+      this.totalCorrect = 0;
+      this.questionsAnswered = 0;
     },
   },
   data() {
